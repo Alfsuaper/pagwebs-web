@@ -95,7 +95,12 @@ export default function ChatbotWidget() {
     setIsTyping(true);
 
     try {
-      const res = await fetch("/api/chat", {
+      const chatEndpoint =
+        typeof window !== "undefined" && window.location.hostname.includes("pagwebs.com")
+          ? "/wp-json/siscloud/v1/chat"
+          : "/api/chat";
+
+      const res = await fetch(chatEndpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
